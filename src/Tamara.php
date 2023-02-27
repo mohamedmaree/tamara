@@ -1,8 +1,6 @@
 <?php
 namespace Maree\Tamara;
 
-
-use Exception;
 use Illuminate\Support\Facades\Http;
 
 class Tamara
@@ -41,7 +39,7 @@ class Tamara
         $this->url .= "/checkout";
 
         $data = [
-            'order_reference_id' => $order['order_num',
+            'order_reference_id' => $order['order_num'],
             'order_number'       => $order['order_num'],
             'total_amount'       =>
                 [
@@ -114,11 +112,6 @@ class Tamara
         ])->post($this->url, $data);
 
         $responseResult = json_decode($response->getBody()->getContents(), true);
-
-        if (isset($responseResult['errors'])) {
-            throw new Exception($responseResult['message']);
-        }
-
         return $responseResult;
     }
 
@@ -142,43 +135,26 @@ class Tamara
         ])->post($this->url, $data);
 
         $responseResult = json_decode($response->getBody()->getContents(), true);
-
-        if (isset($responseResult['errors'])) {
-            throw new Exception($responseResult['message']);
-        }
-
-        if ($responseResult['has_available_payment_options'] == false) {
-            throw new Exception("Can't split this order Value to Installments");
-        }
-
-        return true;
-
+        return $responseResult;
     }
 
     public function getOrderDetails($orderId)
     {
-        $this->url .= "/merchants/orders/reference-id/4" . $orderId;
+        $this->url .= "/merchants/orders/reference-id/" . $orderId;
 
         $response = Http::withHeaders([
             'Accept'        => 'application/json',
             'Content-Type'  => 'application/json',
             'Authorization' => 'Bearer ' . $this->token
         ])->get($this->url);
-
         $responseResult = json_decode($response->getBody()->getContents(), true);
-
-        $responseResult = json_decode($responseResult, true);
-
-        if (isset($responseResult['errors'])) {
-            throw new Exception($responseResult['message']);
-        }
-
         return $responseResult;
     }
 
     public function cancelOrder($order)
-    {
-        $this->url .= "/orders/{$orderId}/cancel";
+    {   
+        $orderId = $order['id'];
+        $this->url .= "/orders/$orderId/cancel";
         $data      = [
             'orderId'      => $order['id'],
             'total_amount' => [
@@ -193,10 +169,7 @@ class Tamara
         ])->post($this->url, $data);
 
         $responseResult = json_decode($response->getBody()->getContents(), true);
-
-        if (isset($responseResult['errors'])) {
-            throw new Exception($responseResult['message']);
-        }
+        return $responseResult;
     }
 
     private function getOrderItems($products = [])
