@@ -1,0 +1,26 @@
+{
+    "name": "maree/tamara",
+    "description": "package to integrate tamara with your php laravel project",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mohamed maree",
+            "email": "m7mdmaree26@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Maree\\Tamara\\" : "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Maree\\Tamara\\TamaraServiceProvider"
+            ]
+        }
+    } 
+}
