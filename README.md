@@ -1,4 +1,6 @@
 # tamara
+Tamara is a pay-later service with zero interest and no additional fees.
+Shop for the items you're interested in from our partners and split the amount into 3 or 4 easy monthly payments, the first of which is upon purchase.
 
 ## Installation
 You can install the package via [Composer](https://getcomposer.org).
