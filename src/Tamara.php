@@ -36,7 +36,7 @@ class Tamara
         $this->currency    = config('tamara.currency');
     }
 
-    public function createCheckoutSession($order = [],$consumer = [],$billing_address= [],$shipping_address=[],$urls =[])
+    public function createCheckoutSession($order = [],$products = [],$consumer = [],$billing_address= [],$shipping_address=[],$urls =[])
     {
         $this->url .= "/checkout";
 
@@ -53,7 +53,7 @@ class Tamara
             'payment_type'       => 'PAY_BY_INSTALMENTS',
             'instalments'        => NULL,
             'locale'             => 'en_US',
-            'items'              => $this->getOrderItems($order),
+            'items'              => $this->getOrderItems($products),
             'consumer'           =>
                 [
                     'first_name'   => $consumer['first_name'],
