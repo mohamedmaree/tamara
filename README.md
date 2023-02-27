@@ -52,7 +52,7 @@ use Maree\Tamara\Tamara;
     Route::get('tamara-response', 'PaymentController@tamaraResult')->name('tamara.result');
 
 ```
-- in controllers/PaymentController check create callback function to check response
+- in controllers/PaymentController create callback function to check response
 ```php
 
     public function tamaraResult(Request $request)
